@@ -1,12 +1,12 @@
 class Node:
     """Doc stub"""
 
-    source = None
+    source: str = None
 
     def __init__(self):
         pass
 
-    def parse(self, source):
+    def parse(self, source: str):
         Node.source = source
 
 
@@ -27,6 +27,6 @@ class Empty(Lexeme):
 class Literal(Lexeme):
     """Doc stub"""
 
-    def __init__(self, target):
+    def __init__(self, target: str):
         super().__init__()
         self.target = target

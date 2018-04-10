@@ -1,11 +1,13 @@
 class Node:
     """Doc stub"""
 
+    source = None
+
     def __init__(self):
         pass
 
-    def parse(self):
-        pass
+    def parse(self, source):
+        Node.source = source
 
 
 class Lexeme(Node):

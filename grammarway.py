@@ -4,15 +4,15 @@ class Node:
     def __init__(self):
         pass
 
+    def parse(self):
+        pass
+
 
 class Lexeme(Node):
     """Doc stub"""
 
     def __init__(self):
         super().__init__()
-
-    def parse(self):
-        pass
 
 
 class Empty(Lexeme):

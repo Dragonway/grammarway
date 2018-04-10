@@ -25,5 +25,6 @@ class Empty(Lexeme):
 class Literal(Lexeme):
     """Doc stub"""
 
-    def __init__(self):
+    def __init__(self, target):
         super().__init__()
+        self.target = target

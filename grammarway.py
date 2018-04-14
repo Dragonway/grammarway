@@ -1,6 +1,16 @@
 class Node:
     """Doc stub"""
 
+    class Checker:
+        """Doc stub"""
+
+        def __init__(self, node: 'Node'):
+            self.node = node
+
+        def check(self, source: str):
+            pass
+
+
     source: str = None
 
     def __init__(self):

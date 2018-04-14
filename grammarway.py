@@ -14,13 +14,11 @@ class Node:
             pass
 
 
-    source: str = None
-
     def __init__(self):
-        pass
+        self.source: str = None
 
     def parse(self, source: str):
-        Node.source = source
+        self.source = source
 
 
 class Lexeme(Node):

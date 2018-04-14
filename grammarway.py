@@ -1,6 +1,16 @@
 from abc import ABC, abstractmethod
 
 
+class Stream:
+    """Doc stub"""
+
+    def __init__(self, source: str):
+        self.source = source
+        self.position = 0
+        self.line = 1
+        self.column = 1
+
+
 class Node(ABC):
     """Doc stub"""
 

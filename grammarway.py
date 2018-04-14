@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-class Node:
+class Node(ABC):
     """Doc stub"""
 
     class Checker(ABC):

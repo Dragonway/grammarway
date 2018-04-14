@@ -28,13 +28,13 @@ class Node(ABC):
         self.source: str = None
 
     @abstractmethod
-    def _parse(self, source: Stream, pos: int):
+    def _parse(self, source: Stream):
         pass
 
     def parse(self, source: Stream):
         self.source = source
 
-        self._parse(source, 0)
+        self._parse(source)
 
 
 class Lexeme(Node):
@@ -48,7 +48,7 @@ class Empty(Lexeme):
     def __init__(self):
         super().__init__()
 
-    def _parse(self, source: Stream, pos: int):
+    def _parse(self, source: Stream):
         pass
 
 
@@ -59,5 +59,5 @@ class Literal(Lexeme):
         super().__init__()
         self.target = target
 
-    def _parse(self, source: Stream, pos: int):
+    def _parse(self, source: Stream):
         pass

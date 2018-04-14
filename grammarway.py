@@ -1,12 +1,15 @@
+from abc import ABC, abstractmethod
+
 class Node:
     """Doc stub"""
 
-    class Checker:
+    class Checker(ABC):
         """Doc stub"""
 
         def __init__(self, node: 'Node'):
             self.node = node
 
+        @abstractmethod
         def check(self, source: str):
             pass
 

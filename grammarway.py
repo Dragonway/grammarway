@@ -29,9 +29,7 @@ class Node(ABC):
 
 class Lexeme(Node):
     """Doc stub"""
-
-    def __init__(self):
-        super().__init__()
+    pass
 
 
 class Empty(Lexeme):

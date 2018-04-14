@@ -31,10 +31,10 @@ class Node(ABC):
     def _parse(self, source: Stream):
         pass
 
-    def parse(self, source: Stream):
-        self.source = source
+    def parse(self, source: str):
+        self.source = Stream(source)
 
-        self._parse(source)
+        self._parse(self.source)
 
 
 class Lexeme(Node):

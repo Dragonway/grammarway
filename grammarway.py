@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class Node(ABC):
     """Doc stub"""
 
@@ -12,7 +13,6 @@ class Node(ABC):
         @abstractmethod
         def check(self, source: str):
             pass
-
 
     def __init__(self):
         self.source: str = None

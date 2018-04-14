@@ -17,8 +17,14 @@ class Node(ABC):
     def __init__(self):
         self.source: str = None
 
+    @abstractmethod
+    def _parse(self, source: str, pos: int):
+        pass
+
     def parse(self, source: str):
         self.source = source
+
+        self._parse(source, 0)
 
 
 class Lexeme(Node):
@@ -34,6 +40,9 @@ class Empty(Lexeme):
     def __init__(self):
         super().__init__()
 
+    def _parse(self, source: str, pos: int):
+        pass
+
 
 class Literal(Lexeme):
     """Doc stub"""
@@ -41,3 +50,6 @@ class Literal(Lexeme):
     def __init__(self, target: str):
         super().__init__()
         self.target = target
+
+    def _parse(self, source: str, pos: int):
+        pass

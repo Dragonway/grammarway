@@ -26,14 +26,14 @@ class Node(ABC):
 
         @abstractmethod
         def check(self, source: str):
-            pass
+            raise NotImplementedError
 
     def __init__(self):
         self.source: str = None
 
     @abstractmethod
     def _parse(self, source: Stream):
-        pass
+        raise NotImplementedError
 
     def parse(self, source: str):
         self.source = Stream(source)

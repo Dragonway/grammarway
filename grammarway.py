@@ -10,6 +10,10 @@ class Stream:
         self.line = 1
         self.column = 1
 
+    def next(self):
+        self.position += 1
+        return self.source[self.position - 1]
+
 
 class Node(ABC):
     """Doc stub"""

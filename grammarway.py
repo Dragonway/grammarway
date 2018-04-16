@@ -56,7 +56,12 @@ class Node(ABC):
 
 class Lexeme(Node):
     """Doc stub"""
-    pass
+
+    def _parse(self, source: Stream):
+        checker = self.make_checker()
+
+        while checker.status is not None:
+            checker(source.next())
 
 
 class Empty(Lexeme):
@@ -71,9 +76,6 @@ class Empty(Lexeme):
 
     def __init__(self):
         super().__init__()
-
-    def _parse(self, source: Stream):
-        pass
 
 
 class Literal(Lexeme):
@@ -101,6 +103,3 @@ class Literal(Lexeme):
     def __init__(self, target: str):
         super().__init__()
         self.target = target
-
-    def _parse(self, source: Stream):
-        pass

@@ -23,6 +23,7 @@ class Node(ABC):
 
         def __init__(self, node: 'Node'):
             self.node = node
+            self.status: bool = None
 
         @abstractmethod
         def check(self, source: str):

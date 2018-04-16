@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from typing import TypeVar
 
 
 class Stream:
@@ -15,13 +16,16 @@ class Stream:
         return self.source[self.position - 1]
 
 
+NodeType = TypeVar('NodeType', bound='Node')
+
+
 class Node(ABC):
     """Doc stub"""
 
     class Checker(ABC):
         """Doc stub"""
 
-        def __init__(self, node: 'Node'):
+        def __init__(self, node: NodeType):
             self.node = node
             self.status: bool = None
 

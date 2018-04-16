@@ -36,8 +36,13 @@ class Node(ABC):
         def __call__(self, source: str):
             return self.check(source)
 
+    CheckerType = TypeVar('CheckerType', bound=Checker)
+
     def __init__(self):
         self.source: str = None
+
+    def make_checker(self) -> CheckerType:
+        return self.Checker(self)
 
     @abstractmethod
     def _parse(self, source: Stream):

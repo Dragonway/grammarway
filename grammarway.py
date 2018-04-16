@@ -54,6 +54,7 @@ class Empty(Lexeme):
         """Doc stub"""
 
         def check(self, source: str):
+            self.status = True
             return True
 
     def __init__(self):

@@ -49,6 +49,12 @@ class Lexeme(Node):
 class Empty(Lexeme):
     """Doc stub"""
 
+    class Checker(Node.Checker):
+        """Doc stub"""
+
+        def check(self, source: str):
+            return True
+
     def __init__(self):
         super().__init__()
 

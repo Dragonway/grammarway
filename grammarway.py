@@ -33,6 +33,9 @@ class Node(ABC):
         def check(self, source: str):
             raise NotImplementedError
 
+        def __call__(self, source: str):
+            return self.check(source)
+
     def __init__(self):
         self.source: str = None
 

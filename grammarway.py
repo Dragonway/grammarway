@@ -67,6 +67,25 @@ class Empty(Lexeme):
 class Literal(Lexeme):
     """Doc stub"""
 
+    class Checker(Node.Checker):
+        """Doc stub"""
+
+        def __init__(self, node: 'Literal'):
+            super().__init__(node)
+            self.position: int = 0
+
+        def check(self, source: str):
+            if source[0] != self.node.target[self.position]:
+                self.status = False
+                return False
+
+            self.position += 1
+
+            if self.position == len(self.node.target):
+                self.status = True
+
+            return True
+
     def __init__(self, target: str):
         super().__init__()
         self.target = target

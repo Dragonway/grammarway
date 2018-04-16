@@ -52,7 +52,7 @@ class Node(ABC):
     def parse(self, source: str):
         self.source = Stream(source)
 
-        self._parse(self.source)
+        return self._parse(self.source)
 
 
 class Lexeme(Node):
@@ -63,6 +63,8 @@ class Lexeme(Node):
 
         while checker.status is not None:
             checker(source.next)
+
+        return checker.status
 
 
 class Empty(Lexeme):

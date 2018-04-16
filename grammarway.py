@@ -11,6 +11,7 @@ class Stream:
         self.line = 1
         self.column = 1
 
+    @property
     def next(self):
         self.position += 1
         return self.source[self.position - 1]
@@ -61,7 +62,7 @@ class Lexeme(Node):
         checker = self.make_checker()
 
         while checker.status is not None:
-            checker(source.next())
+            checker(source.next)
 
 
 class Empty(Lexeme):

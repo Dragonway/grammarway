@@ -61,7 +61,7 @@ class Lexeme(Node):
     def _parse(self, source: Stream):
         checker = self.make_checker()
 
-        while checker.status is not None:
+        while checker.status is None:
             checker(source.next)
 
         return checker.status

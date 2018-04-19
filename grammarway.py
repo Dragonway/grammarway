@@ -37,8 +37,14 @@ class Node(ABC):
             self.status: bool = None
 
         @abstractmethod
-        def check(self, source: Optional[str]) -> bool:
+        def _check(self, source: Optional[str]) -> bool:
             raise NotImplementedError
+
+        def check(self, source: Optional[str]) -> bool:
+            if self.status is not None:
+                raise Exception("Called already completed checker")
+
+            return self._check(source)
 
         def __call__(self, source: str):
             return self.check(source)
@@ -80,7 +86,7 @@ class Empty(Lexeme):
     class Checker(Node.Checker):
         """Doc stub"""
 
-        def check(self, source: Optional[str]) -> bool:
+        def _check(self, source: Optional[str]) -> bool:
             self.status = True
             return False
 
@@ -98,7 +104,7 @@ class Literal(Lexeme):
             super().__init__(node)
             self.position: int = 0
 
-        def check(self, source: Optional[str]) -> bool:
+        def _check(self, source: Optional[str]) -> bool:
             if source is None or source[0] != self.node.target[self.position]:
                 self.status = False
                 return False

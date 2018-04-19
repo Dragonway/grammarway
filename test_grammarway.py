@@ -17,6 +17,7 @@ class TestLexemes(unittest.TestCase):
         self.assertTrue(literal.parse("grammarways"))
         self.assertFalse(literal.parse("grammarwei"))
         self.assertFalse(literal.parse("drammarway"))
+        self.assertFalse(literal.parse("grammar"))
 
 if __name__ == '__main__':
     unittest.main()

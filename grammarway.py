@@ -24,6 +24,9 @@ class Stream:
         return self.source[self.position - 1]
 
     def step_back(self):
+        if self.position == 0:
+            raise GrammarwayError("'step_back' called before actual position changing")
+
         self.position -= 1
 
 

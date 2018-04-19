@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar
+from typing import TypeVar, Optional
 
 
 class Stream:
@@ -12,7 +12,10 @@ class Stream:
         self.column = 1
 
     @property
-    def next(self):
+    def next(self) -> Optional[str]:
+        if self.position == len(self.source):
+            return None
+
         self.position += 1
         return self.source[self.position - 1]
 
@@ -31,7 +34,7 @@ class Node(ABC):
             self.status: bool = None
 
         @abstractmethod
-        def check(self, source: str):
+        def check(self, source: Optional[str]):
             raise NotImplementedError
 
         def __call__(self, source: str):
@@ -73,7 +76,7 @@ class Empty(Lexeme):
     class Checker(Node.Checker):
         """Doc stub"""
 
-        def check(self, source: str):
+        def check(self, source: Optional[str]):
             self.status = True
             return True
 
@@ -91,8 +94,8 @@ class Literal(Lexeme):
             super().__init__(node)
             self.position: int = 0
 
-        def check(self, source: str):
-            if source[0] != self.node.target[self.position]:
+        def check(self, source: Optional[str]):
+            if source is None or source[0] != self.node.target[self.position]:
                 self.status = False
                 return False
 

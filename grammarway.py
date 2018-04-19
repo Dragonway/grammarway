@@ -82,7 +82,7 @@ class Empty(Lexeme):
 
         def check(self, source: Optional[str]) -> bool:
             self.status = True
-            return True
+            return False
 
     def __init__(self):
         super().__init__()

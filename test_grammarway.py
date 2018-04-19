@@ -1,6 +1,7 @@
 import unittest
 import grammarway as gw
 
+
 class TestLexemes(unittest.TestCase):
 
     def test_empty(self):
@@ -18,6 +19,7 @@ class TestLexemes(unittest.TestCase):
         self.assertFalse(literal.parse("grammarwei"))
         self.assertFalse(literal.parse("drammarway"))
         self.assertFalse(literal.parse("grammar"))
+
 
 if __name__ == '__main__':
     unittest.main()

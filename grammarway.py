@@ -19,6 +19,9 @@ class Stream:
         self.position += 1
         return self.source[self.position - 1]
 
+    def step_back(self):
+        self.position -= 1
+
 
 NodeType = TypeVar('NodeType', bound='Node')
 
@@ -34,7 +37,7 @@ class Node(ABC):
             self.status: bool = None
 
         @abstractmethod
-        def check(self, source: Optional[str]):
+        def check(self, source: Optional[str]) -> bool:
             raise NotImplementedError
 
         def __call__(self, source: str):
@@ -65,7 +68,8 @@ class Lexeme(Node):
         checker = self.make_checker()
 
         while checker.status is None:
-            checker(source.next)
+            if not checker(source.next):
+                source.step_back()
 
         return checker.status
 
@@ -76,7 +80,7 @@ class Empty(Lexeme):
     class Checker(Node.Checker):
         """Doc stub"""
 
-        def check(self, source: Optional[str]):
+        def check(self, source: Optional[str]) -> bool:
             self.status = True
             return True
 
@@ -94,7 +98,7 @@ class Literal(Lexeme):
             super().__init__(node)
             self.position: int = 0
 
-        def check(self, source: Optional[str]):
+        def check(self, source: Optional[str]) -> bool:
             if source is None or source[0] != self.node.target[self.position]:
                 self.status = False
                 return False

@@ -2,6 +2,10 @@ from abc import ABC, abstractmethod
 from typing import TypeVar, Optional
 
 
+class GrammarwayError(Exception):
+    pass
+
+
 class Stream:
     """Doc stub"""
 
@@ -42,7 +46,7 @@ class Node(ABC):
 
         def check(self, source: Optional[str]) -> bool:
             if self.status is not None:
-                raise Exception("Called already completed checker")
+                raise GrammarwayError("Called already completed checker")
 
             return self._check(source)
 

@@ -41,7 +41,7 @@ class Node(ABC):
 
         def __init__(self, node: NodeType):
             self.node = node
-            self.status: bool = None
+            self.status: Optional[bool] = None
 
         @abstractmethod
         def _check(self, source: Optional[str]) -> bool:
@@ -59,7 +59,7 @@ class Node(ABC):
     CheckerType = TypeVar('CheckerType', bound=Checker)
 
     def __init__(self):
-        self.source: str = None
+        self.source: Optional[str] = None
 
     def make_checker(self) -> CheckerType:
         return self.Checker(self)

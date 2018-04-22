@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar, Optional
+from typing import TypeVar, Optional, List
 
 
 class GrammarwayError(Exception):
@@ -73,9 +73,8 @@ class Node(ABC):
 
         return self._parse(self.source)
 
-    @abstractmethod
     def __add__(self, other: NodeType) -> 'And':
-        raise NotImplementedError
+        return And(self, other)
 
     @abstractmethod
     def __or__(self, other: NodeType) -> 'Or':
@@ -84,7 +83,17 @@ class Node(ABC):
 
 class And(Node):
     """Doc stub"""
-    pass
+
+    class Checker(Node.Checker):
+        """Doc stub"""
+        pass
+
+    def __init__(self, node1: NodeType, node2: NodeType):
+        super().__init__()
+        self.nodes: List[NodeType] = [node1, node2]
+
+    def _parse(self, source: Stream):
+        return all(node.parse(source) for node in self.nodes)
 
 
 class Or(Node):

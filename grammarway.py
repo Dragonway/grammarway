@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from typing import TypeVar, Optional, List
+from typing import TypeVar, Optional, List, Union
 
 
 class GrammarwayError(Exception):
@@ -68,8 +68,11 @@ class Node(ABC):
     def _parse(self, source: Stream):
         raise NotImplementedError
 
-    def parse(self, source: str):
-        self.source = Stream(source)
+    def parse(self, source: Union[str, Stream]):
+        if isinstance(source, str):
+            source = Stream(source)
+
+        self.source = source
 
         return self._parse(self.source)
 

@@ -64,17 +64,19 @@ class Node(ABC):
     def make_checker(self) -> CheckerType:
         return self.Checker(self)
 
-    @abstractmethod
-    def _parse(self, source: Stream):
-        raise NotImplementedError
-
     def parse(self, source: Union[str, Stream]):
         if isinstance(source, str):
             source = Stream(source)
 
         self.source = source
 
-        return self._parse(self.source)
+        checker = self.make_checker()
+
+        while checker.status is None:
+            if not checker(source.next):
+                source.step_back()
+
+        return checker.status
 
     def __add__(self, other: NodeType) -> 'And':
         return And(self, other)
@@ -116,9 +118,6 @@ class And(Node):
         super().__init__()
         self.nodes: List[NodeType] = [node1, node2]
 
-    def _parse(self, source: Stream):
-        return all(node.parse(source) for node in self.nodes)
-
 
 class Or(Node):
     """Doc stub"""
@@ -155,27 +154,10 @@ class Or(Node):
         super().__init__()
         self.nodes: List[NodeType] = [node1, node2]
 
-    def _parse(self, source: Stream):
-        checker = self.make_checker()
-
-        while checker.status is None:
-            if not checker(source.next):
-                source.step_back()
-
-        return checker.status
-
 
 class Lexeme(Node):
     """Doc stub"""
-
-    def _parse(self, source: Stream):
-        checker = self.make_checker()
-
-        while checker.status is None:
-            if not checker(source.next):
-                source.step_back()
-
-        return checker.status
+    ...
 
 
 class Empty(Lexeme):

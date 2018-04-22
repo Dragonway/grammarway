@@ -76,6 +76,9 @@ class Node(ABC):
     def __add__(self, other: NodeType) -> 'And':
         return And(self, other)
 
+    def __and__(self, other: NodeType) -> 'And':
+        return self.__add__(other)
+
     def __or__(self, other: NodeType) -> 'Or':
         return Or(self, other)
 

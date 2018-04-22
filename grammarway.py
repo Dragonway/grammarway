@@ -77,8 +77,17 @@ class Node(ABC):
     def __add__(self, other: NodeType) -> 'And':
         raise NotImplementedError
 
+    @abstractmethod
+    def __or__(self, other: NodeType) -> 'Or':
+        raise NotImplementedError
+
 
 class And(Node):
+    """Doc stub"""
+    pass
+
+
+class Or(Node):
     """Doc stub"""
     pass
 

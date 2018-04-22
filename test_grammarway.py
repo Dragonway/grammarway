@@ -20,6 +20,23 @@ class TestLexemes(unittest.TestCase):
         self.assertFalse(literal.parse("drammarway"))
         self.assertFalse(literal.parse("grammar"))
 
+    def _test_and(self, node: gw.And):
+        self.assertTrue(node.parse("grammarway"))
+        self.assertTrue(node.parse("grammarways"))
+        self.assertFalse(node.parse("grammarwei"))
+        self.assertFalse(node.parse("drammarway"))
+        self.assertFalse(node.parse("grammar"))
+
+    def test_and(self):
+        and1 = gw.Literal("grammar") + gw.Literal("way")
+        self._test_and(and1)
+
+        and2 = gw.Empty() + and1
+        self._test_and(and2)
+
+        and3 = and2 + gw.Empty()
+        self._test_and(and3)
+
 
 if __name__ == '__main__':
     unittest.main()

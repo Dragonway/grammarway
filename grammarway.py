@@ -95,7 +95,7 @@ class And(Node):
         def __init__(self, node: 'And'):
             super().__init__(node)
             self.current_node = 0
-            self.current_checker: Node.Checker = node.nodes[self.current_node].make_checker()
+            self.current_checker: Node.CheckerType = node.nodes[self.current_node].make_checker()
 
         def _check(self, source: Optional[str]) -> bool:
             result = self.current_checker(source)

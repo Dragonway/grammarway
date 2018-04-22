@@ -58,17 +58,12 @@ class Node(ABC):
 
     CheckerType = TypeVar('CheckerType', bound=Checker)
 
-    def __init__(self):
-        self.source: Optional[str] = None
-
     def make_checker(self) -> CheckerType:
         return self.Checker(self)
 
     def parse(self, source: Union[str, Stream]):
         if isinstance(source, str):
             source = Stream(source)
-
-        self.source = source
 
         checker = self.make_checker()
 

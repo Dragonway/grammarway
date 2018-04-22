@@ -73,6 +73,15 @@ class Node(ABC):
 
         return self._parse(self.source)
 
+    @abstractmethod
+    def __add__(self, other: NodeType) -> 'And':
+        raise NotImplementedError
+
+
+class And(Node):
+    """Doc stub"""
+    pass
+
 
 class Lexeme(Node):
     """Doc stub"""

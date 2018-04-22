@@ -156,7 +156,13 @@ class Or(Node):
         self.nodes: List[NodeType] = [node1, node2]
 
     def _parse(self, source: Stream):
-        return any(node.parse(source) for node in self.nodes)
+        checker = self.make_checker()
+
+        while checker.status is None:
+            if not checker(source.next):
+                source.step_back()
+
+        return checker.status
 
 
 class Lexeme(Node):

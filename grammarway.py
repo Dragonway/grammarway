@@ -125,7 +125,31 @@ class Or(Node):
 
     class Checker(Node.Checker):
         """Doc stub"""
-        pass
+
+        def __init__(self, node: 'Or'):
+            super().__init__(node)
+            self.accepted_nodes: List[NodeType] = []
+            self.checkers: List[Node.CheckerType] = [node.make_checker() for node in self.node.nodes]
+
+        def _check(self, source: Optional[str]) -> bool:
+            result = False
+            accepted_nodes = []
+            for checker in self.checkers[:]:
+                if not checker(source):
+                    self.checkers.remove(checker)
+                else:
+                    result = True
+                    if checker.status is not None:
+                        self.checkers.remove(checker)
+                        accepted_nodes.append(checker.node)
+
+            if accepted_nodes:
+                self.accepted_nodes = accepted_nodes
+
+            if not self.checkers:
+                self.status = bool(self.accepted_nodes)
+
+            return result
 
     def __init__(self, node1: NodeType, node2: NodeType):
         super().__init__()

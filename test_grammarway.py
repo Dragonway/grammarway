@@ -37,6 +37,22 @@ class TestLexemes(unittest.TestCase):
         and3 = and2 + gw.Empty()
         self._test_and(and3)
 
+    def _test_or(self, node: gw.Or):
+        self.assertTrue(node.parse("grammar"))
+        self.assertTrue(node.parse("grammarway"))
+        self.assertTrue(node.parse("way"))
+        self.assertFalse(node.parse("grammaway"))
+
+    def test_or(self):
+        or1 = gw.Literal("grammar") | gw.Literal("way")
+        self._test_or(or1)
+
+        or2 = gw.Empty() | or1
+        self._test_or(or2)
+
+        or3 = or2 | gw.Empty()
+        self._test_or(or3)
+
 
 if __name__ == '__main__':
     unittest.main()

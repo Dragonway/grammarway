@@ -76,9 +76,8 @@ class Node(ABC):
     def __add__(self, other: NodeType) -> 'And':
         return And(self, other)
 
-    @abstractmethod
     def __or__(self, other: NodeType) -> 'Or':
-        raise NotImplementedError
+        return Or(self, other)
 
 
 class And(Node):
@@ -98,7 +97,17 @@ class And(Node):
 
 class Or(Node):
     """Doc stub"""
-    pass
+
+    class Checker(Node.Checker):
+        """Doc stub"""
+        pass
+
+    def __init__(self, node1: NodeType, node2: NodeType):
+        super().__init__()
+        self.nodes: List[NodeType] = [node1, node2]
+
+    def _parse(self, source: Stream):
+        return any(node.parse(source) for node in self.nodes)
 
 
 class Lexeme(Node):

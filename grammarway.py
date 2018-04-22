@@ -91,7 +91,26 @@ class And(Node):
 
     class Checker(Node.Checker):
         """Doc stub"""
-        pass
+
+        def __init__(self, node: 'And'):
+            super().__init__(node)
+            self.current_node = 0
+            self.current_checker: Node.Checker = node.nodes[self.current_node].make_checker()
+
+        def _check(self, source: Optional[str]) -> bool:
+            result = self.current_checker(source)
+
+            if self.current_checker.status is not None:
+                if self.current_checker.status:
+                    self.current_node += 1
+                    if self.current_node == len(self.node.nodes):
+                        self.status = True
+                    else:
+                        self.current_checker = self.node.nodes[self.current_node].make_checker()
+                else:
+                    self.status = False
+
+            return result
 
     def __init__(self, node1: NodeType, node2: NodeType):
         super().__init__()

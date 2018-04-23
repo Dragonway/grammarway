@@ -37,7 +37,7 @@ class TestLexemes(unittest.TestCase):
         and3 = and2 + gw.Empty()
         self._test_and(and3)
 
-    def _test_or(self, node: gw.Or):
+    def _test_or(self, node: gw.Union[gw.Or, gw.And]):
         self.assertTrue(node.parse("grammar"))
         self.assertTrue(node.parse("grammarway"))
         self.assertTrue(node.parse("way"))
@@ -47,10 +47,10 @@ class TestLexemes(unittest.TestCase):
         or1 = gw.Literal("grammar") | gw.Literal("way")
         self._test_or(or1)
 
-        or2 = gw.Empty() | or1
+        or2 = gw.Empty() + or1
         self._test_or(or2)
 
-        or3 = or2 | gw.Empty()
+        or3 = or2 + gw.Empty()
         self._test_or(or3)
 
 

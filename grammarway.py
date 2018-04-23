@@ -116,6 +116,9 @@ class And(Node):
         super().__init__()
         self.nodes: List[NodeType] = [node1, node2]
 
+    def __str__(self):
+        return " ".join([str(node) for node in self.nodes])
+
 
 class Or(Node):
     """Doc stub"""
@@ -152,6 +155,9 @@ class Or(Node):
         super().__init__()
         self.nodes: List[NodeType] = [node1, node2]
 
+    def __str__(self):
+        return "(%s)" % ' | '.join([str(node) for node in self.nodes])
+
 
 class Lexeme(Node):
     """Doc stub"""
@@ -170,6 +176,9 @@ class Empty(Lexeme):
 
     def __init__(self):
         super().__init__()
+
+    def __str__(self):
+        return "e"
 
 
 class Literal(Lexeme):
@@ -197,3 +206,6 @@ class Literal(Lexeme):
     def __init__(self, target: str):
         super().__init__()
         self.target = target
+
+    def __str__(self):
+        return "l'%s'" % self.target

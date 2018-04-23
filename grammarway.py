@@ -132,12 +132,12 @@ class Or(Node):
             result = False
             accepted_nodes = []
             for checker in self.checkers[:]:
-                if not checker(source):
+                result |= checker(source)
+
+                if checker.status is not None:
                     self.checkers.remove(checker)
-                else:
-                    result = True
-                    if checker.status is not None:
-                        self.checkers.remove(checker)
+
+                    if checker.status:
                         accepted_nodes.append(checker.node)
 
             if accepted_nodes:
